@@ -1,0 +1,48 @@
+{% spaceless %}
+<!DOCTYPE html>
+{% load i18n static %}
+<html lang="en">
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<meta charset="utf-8">
+		<link href="{% get_static_prefix %}css/bootstrap.css" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="{% get_static_prefix %}js/jquery.js"></script>
+		<script src="{% get_static_prefix %}js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="/">Distance</a>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="content">
+				{% block content %}
+<script type="text/javascript">
+if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
+} else {
+	$('.content').append('<div class="alert alert-error">Your browser does not support geolocation.</div>')
+}
+
+function displayPosition(pos) {
+	$.getJSON('/api/calculate/?lat='+pos.coords.latitude+'&lng='+pos.coords.longitude, function(data) {
+		$('.content').append('<div class="alert alert-success">Distance between secret headquarters and your location is ' + data.km.toFixed(2) + ' kilometers.</div>')
+	});
+}
+
+function errorFunction(pos) {
+	$('.content').append('<div class="alert alert-error">There was a problem getting your location.</div>')
+}
+</script>
+
+
+				{% endblock content %}
+			</div>
+		</div>
+	</body>
+</html>
+{% endspaceless %}

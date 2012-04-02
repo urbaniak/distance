@@ -1,0 +1,7 @@
+.DS_Store
+*.pyc
+*.pyo
+*~
+*.orig
+.gaedata
+local_settings.py

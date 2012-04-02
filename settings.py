@@ -6,6 +6,8 @@ PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 MANAGERS = ADMINS = (
 )
 
+DEBUG = True
+
 TIME_ZONE = 'Europe/London'
 
 LANGUAGE_CODE = 'en-GB'
